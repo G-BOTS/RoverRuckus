@@ -52,9 +52,9 @@ public class AutoExpirement extends LinearOpMode
 
         waitForStart();
 
-        liftDrive(-MAX_SPEED,-400, 5.0);
-        //thehookDrive(MAX_SPEED,40,5);
-        liftDrive(MAX_SPEED,400, 5.0);
+        liftDrive(MAX_SPEED,100, 1.0);// for extending the sissor lift
+        hookDrive(MAX_SPEED, 40, 1);// disengage the hook
+        liftDrive(-MAX_SPEED,-100, 1.0);// for contracting the sissor lift
 
 
         encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -100, -100, 5.0);
@@ -110,49 +110,49 @@ public class AutoExpirement extends LinearOpMode
             sleep(250);   // optional pause after each move
         }
     }
-    public void liftDrive(double liftspeed, int limit, double timeoutS) {
+    public void liftDrive(double MAX_SPEED, int limit, double timeoutS) {
 
-    // Ensure that the opmode is still active
-    if (opModeIsActive()) {
-        robot.Intake.setTargetPosition(limit);
-        // Turn On RUN_TO_POSITION
-        robot.Intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // reset the timeout time and start motion.
-        runtime.reset();
-        robot.Intake.setPower(liftspeed);
-        //        keep looping while we are still active, and there is time left, and both motors are running.
-        while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
-                (robot.Intake.isBusy())) {
-            // Display it for the driver.
-            telemetry.addData("Path1", "Running to %7d :%7d", limit,0);
-            telemetry.addData("Path2", "Running at %7d :%7d",
-                    robot.Intake.getCurrentPosition());
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+            robot.Intake.setTargetPosition(limit);
+            // Turn On RUN_TO_POSITION
+            robot.Intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Intake.setPower(MAX_SPEED);
+            //        keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
+                    (robot.Intake.isBusy())) {
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.Intake.getCurrentPosition());
+            }
+            // Stop all motion;
+            robot.Intake.setPower(0);
+            // Turn off RUN_TO_POSITION
+            robot.Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sleep(250);   // optional pause after each move
         }
-        // Stop all motion;
-        robot.Intake.setPower(0);
-        // Turn off RUN_TO_POSITION
-        robot.Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sleep(250);   // optional pause after each move
     }
-    //public void hookDrive (double hookspeed, int hooklimit, double htimeoutS) {
+    //public void hookDrive(double hookspeed, int hooklimit, double htimeoutS) {
 
-   /** public void hookDrive(double hookspeed,int hooklimit,double htimeoutS )  {
+     public void hookDrive( double MAX_SPEED,int limit,int timeoutS) {
 
-        // Ensure that the opmode is still activ
+        // Ensure that the opmode is still active
             if (opModeIsActive()) {
-                robot.Conveyor.setTargetPosition(hooklimit);
+                robot.Conveyor.setTargetPosition(limit);
                 // Turn On RUN_TO_POSITION
                 robot.Conveyor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 // reset the timeout time and start motion.
                 runtime.reset();
-                robot.Conveyor.setPower(hookspeed);
+                robot.Conveyor.setPower(MAX_SPEED);
                 //        keep looping while we are still active, and there is time left, and both motors are running.
-                while (opModeIsActive() && (runtime.seconds() < htimeoutS) &&
+                while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                         (robot.Conveyor.isBusy())) {
                     // Display it for the driver.
                     telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
-                    telemetry.addData("Path2", "Running at %7d :%7d",
-                            robot.Intake.getCurrentPosition());
+                    telemetry.addData("Path2", "Running at %7d :%7d", robot.Intake.getCurrentPosition());
                 }
                 // Stop all motion;
                 robot.Conveyor.setPower(0);
@@ -160,6 +160,6 @@ public class AutoExpirement extends LinearOpMode
                 robot.Conveyor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 sleep(250);   // optional pause after each move
             }
-    }**/
+    }
 }
-}
+
