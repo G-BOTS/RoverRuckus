@@ -20,7 +20,7 @@ public class AutoExpirement extends LinearOpMode
     static final double COUNTS_PER_MM = (COUNTS_PER_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_MM * Math.PI);
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
-    static final double MAX_SPEED = 0.8;
+    static final double MAX_SPEED = 1.0;
 
     public void runOpMode()
     {
@@ -32,15 +32,15 @@ public class AutoExpirement extends LinearOpMode
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.Intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.Conveyor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.Conveyor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -52,17 +52,20 @@ public class AutoExpirement extends LinearOpMode
 
         waitForStart();
 
-        liftDrive(MAX_SPEED,100, 1.0);// for extending the sissor lift
-        hookDrive(MAX_SPEED, 40, 1);// disengage the hook
-        liftDrive(-MAX_SPEED,-100, 1.0);// for contracting the sissor lift
+        //Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
 
 
-        encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -100, -100, 5.0);
-        encoderDrive(-TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-        encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
-        encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
-        encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
-        encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
+               liftDrive(-MAX_SPEED,-18000, 15.0);// for extending the scissor lift -6720
+                  hookDrive(-(MAX_SPEED*0.8), -3700,5);// disengage the hook
+                liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift
+
+
+        encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -600, -600, 5.0);
+        //encoderDrive(-TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
+        //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
+       //encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
+        //encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
+        //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
 
     }
 
@@ -114,24 +117,24 @@ public class AutoExpirement extends LinearOpMode
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
-            robot.Intake.setTargetPosition(limit);
+            robot.Lift.setTargetPosition(limit);
             // Turn On RUN_TO_POSITION
-            robot.Intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.Intake.setPower(MAX_SPEED);
+            robot.Lift.setPower(MAX_SPEED);
             //        keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
-                    (robot.Intake.isBusy())) {
+                    (robot.Lift.isBusy())) {
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
                 telemetry.addData("Path2", "Running at %7d :%7d",
-                        robot.Intake.getCurrentPosition());
+                        robot.Lift.getCurrentPosition());
             }
             // Stop all motion;
-            robot.Intake.setPower(0);
+            robot.Lift.setPower(0);
             // Turn off RUN_TO_POSITION
-            robot.Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sleep(250);   // optional pause after each move
         }
     }
@@ -141,23 +144,23 @@ public class AutoExpirement extends LinearOpMode
 
         // Ensure that the opmode is still active
             if (opModeIsActive()) {
-                robot.Conveyor.setTargetPosition(limit);
+                robot.Hook.setTargetPosition(limit);
                 // Turn On RUN_TO_POSITION
-                robot.Conveyor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 // reset the timeout time and start motion.
                 runtime.reset();
-                robot.Conveyor.setPower(MAX_SPEED);
+                robot.Hook.setPower(MAX_SPEED);
                 //        keep looping while we are still active, and there is time left, and both motors are running.
                 while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
-                        (robot.Conveyor.isBusy())) {
+                        (robot.Hook.isBusy())) {
                     // Display it for the driver.
                     telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
-                    telemetry.addData("Path2", "Running at %7d :%7d", robot.Intake.getCurrentPosition());
+                    telemetry.addData("Path2", "Running at %7d :%7d", robot.Lift.getCurrentPosition());
                 }
                 // Stop all motion;
-                robot.Conveyor.setPower(0);
+                robot.Hook.setPower(0);
                 // Turn off RUN_TO_POSITION
-                robot.Conveyor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 sleep(250);   // optional pause after each move
             }
     }
