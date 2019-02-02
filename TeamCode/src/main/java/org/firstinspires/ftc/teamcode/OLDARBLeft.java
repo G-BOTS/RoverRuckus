@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created by robot3050 on 10/26/2018.
  */
-@Autonomous(name="Rover: OLDARBLeft", group="Rover")
+//@Autonomous(name="Rover: OLDARBLeft", group="Rover")
 public class OLDARBLeft extends LinearOpMode
 {
     Rover robot = new Rover();
