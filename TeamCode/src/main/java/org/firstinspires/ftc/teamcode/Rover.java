@@ -23,8 +23,8 @@ public class Rover
     public DcMotor Wrist = null;
     public DcMotor Intake= null;
     public DistanceSensor sensorRange = null;
-    public Servo    leftClaw    = null;
-    //public Servo    rightClaw   = null;
+   // public Servo    leftClaw    = null;
+   // public Servo    rightClaw   = null;
 
 
      //public DcMotor LiftMotor   = null;
@@ -43,8 +43,8 @@ public class Rover
         Arm = ahwmap.get(DcMotor.class,"arm");
         Wrist = ahwmap.get(DcMotor.class,"wrist");
         Intake  =  ahwmap.get(DcMotor.class,"intake");
-        //rightClaw = ahwmap.get(Servo.class, "right_hand");
-        leftClaw  = ahwmap.get(Servo.class, "left_hand");
+       // rightClaw = ahwmap.get(Servo.class, "right_hand");
+       // leftClaw  = ahwmap.get(Servo.class, "left_hand");
 
         //sensorRange = ahwmap.get(DistanceSensor.class,"sensor_range");
 
@@ -60,8 +60,8 @@ public class Rover
 
 
 
-        leftClaw.setPosition(MID_SERVO);
-        //rightClaw.setPosition(MID_SERVO);
+        //leftClaw.setPosition(MID_SERVO);
+       // rightClaw.setPosition(MID_SERVO);
 
         leftMotor.setPower(0);
         rightMotor.setPower(0);

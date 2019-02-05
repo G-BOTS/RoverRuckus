@@ -57,7 +57,7 @@ public class TeleopRover  extends OpMode
 
         } else {
 
-            robot.Arm.setPower(-0.01); // just enough to keep the arm from falling
+            robot.Arm.setPower(0.01); // just enough to keep the arm from falling
 
 
         }
@@ -79,15 +79,15 @@ public class TeleopRover  extends OpMode
         } else {
             robot.Intake.setPower(0);
         }
-        if (gamepad1.dpad_left) {
+         if (gamepad1.dpad_left) {
 
-            robot.leftClaw.setPosition(-0.2);
+            //robot.leftClaw.setPosition(-0.2);
         } else if (gamepad1.dpad_right) {
 
-            robot.leftClaw.setPosition(-0.4);
+            //robot.leftClaw.setPosition(-0.4);
 
         } else {
-            robot.leftClaw.setPosition(0.20);
+           // robot.leftClaw.setPosition(0.20);
         }
         /* if (gamepad1.y) {
             robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -130,6 +130,6 @@ public class TeleopRover  extends OpMode
         telemetry.addData("Lift Encoder", robot.Lift.getCurrentPosition());
         telemetry.addData("Hook Encoder", robot.Hook.getCurrentPosition());
         telemetry.addData("Arm Encoder", robot.Arm.getCurrentPosition());
-        //telemetry.addData("ArmTarget", ArmTarget);
+       // telemetry.addData("ArmTarget", ArmTarget);
     }
 }

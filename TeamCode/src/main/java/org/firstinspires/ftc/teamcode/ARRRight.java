@@ -56,16 +56,16 @@ public class ARRRight extends LinearOpMode
 
 
         liftDrive(-MAX_SPEED,-18000, 15.0);// for extending the scissor lift -6720
-        hookDrive(-(MAX_SPEED*0.8), -3700,5);// disengage the hook
+        hookDrive(-(MAX_SPEED*0.8), -4100,5);// disengage the hook
         liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift
 
 
         encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1400, -1400, 5.0);
         //encoderDrive(-TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
         //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
-        //encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
+        encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
         //encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
-        //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
+        encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
 
     }
 
