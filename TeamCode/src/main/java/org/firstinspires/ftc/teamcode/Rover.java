@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -21,9 +22,9 @@ public class Rover
     public DcMotor Hook = null;
     public DcMotor Arm  = null;
     public DcMotor Wrist = null;
-    public DcMotor Intake= null;
+    public DcMotor Intake = null;
     public DistanceSensor sensorRange = null;
-   // public Servo    leftClaw    = null;
+    public Servo Tipper = null;
    // public Servo    rightClaw   = null;
 
 
@@ -43,7 +44,7 @@ public class Rover
         Arm = ahwmap.get(DcMotor.class,"arm");
         Wrist = ahwmap.get(DcMotor.class,"wrist");
         Intake  =  ahwmap.get(DcMotor.class,"intake");
-       // rightClaw = ahwmap.get(Servo.class, "right_hand");
+       Tipper = ahwmap.get(Servo.class, "tipper");
        // leftClaw  = ahwmap.get(Servo.class, "left_hand");
 
         //sensorRange = ahwmap.get(DistanceSensor.class,"sensor_range");
@@ -55,12 +56,9 @@ public class Rover
         Lift.setDirection(DcMotor.Direction.FORWARD);
         Hook.setDirection(DcMotor.Direction.FORWARD);
         Arm.setDirection(DcMotor.Direction.FORWARD);
-        Wrist.setDirection(DcMotor.Direction.FORWARD);
+        Wrist.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.FORWARD);
-
-
-
-        //leftClaw.setPosition(MID_SERVO);
+        Tipper.setPosition(MID_SERVO);
        // rightClaw.setPosition(MID_SERVO);
 
         leftMotor.setPower(0);

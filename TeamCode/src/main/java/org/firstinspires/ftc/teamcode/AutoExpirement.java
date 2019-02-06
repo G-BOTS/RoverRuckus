@@ -55,17 +55,18 @@ public class AutoExpirement extends LinearOpMode
         //Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
 
 
-               liftDrive(-MAX_SPEED,-18000, 15.0);// for extending the scissor lift -6720
+              /** liftDrive(-MAX_SPEED,-9000, 15.0);// for extending the scissor lift -18000
                   hookDrive(-(MAX_SPEED*0.8), -3700,5);// disengage the hook
-                liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift
+                liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift**/
 
 
-        encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -600, -600, 5.0);
+        //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -600, -600, 5.0);
         //encoderDrive(-TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
         //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
        //encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
         //encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
         //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
+        ARMdeployment();
 
     }
 
@@ -164,5 +165,20 @@ public class AutoExpirement extends LinearOpMode
                 sleep(250);   // optional pause after each move
             }
     }
-}
+    public void ARMdeployment(){
+        //if (opModeIsActive());
+        while( robot.Arm.getCurrentPosition()<800)
+        robot.Arm.setPower(0.6);
+        while(robot.Wrist.getCurrentPosition()<800)
+        robot.Arm.setTargetPosition(800);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        while (opModeIsActive()&& robot.Arm.getCurrentPosition()>600);
+        robot.Wrist.setPower(0.5);
+        robot.Wrist.setTargetPosition(800);
+        robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
 
