@@ -51,14 +51,14 @@ public class Rover
 
         // LiftMotor = ahwmap.get(DcMotor.class,"LiftMotor");
 
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
         Lift.setDirection(DcMotor.Direction.FORWARD);
         Hook.setDirection(DcMotor.Direction.FORWARD);
         Arm.setDirection(DcMotor.Direction.FORWARD);
         Wrist.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.FORWARD);
-        Tipper.setPosition(MID_SERVO);
+        Tipper.setPosition(0.5);//MID_SERVO);
        // rightClaw.setPosition(MID_SERVO);
 
         leftMotor.setPower(0);

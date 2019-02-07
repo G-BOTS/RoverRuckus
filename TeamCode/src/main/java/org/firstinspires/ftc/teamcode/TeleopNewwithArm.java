@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @TeleOp(name = "Rover: TeleopNewwithArm", group = "Rover")
@@ -16,11 +17,14 @@ public class TeleopNewwithArm  extends OpMode
     @Override
     public void init() {
         robot.init(hardwareMap);
+        robot.leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
         robot.Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        robot.Wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     @Override
@@ -48,8 +52,8 @@ public class TeleopNewwithArm  extends OpMode
         if (gamepad1.x) {
 
             //robot.Arm.setPower(-0.2);
-            robot.Arm.setTargetPosition(-200);
-            robot.Arm.setPower(-0.2);
+            robot.Arm.setTargetPosition(200);
+            robot.Arm.setPower(0.2);
             robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         } else if (gamepad1.y) {
@@ -58,8 +62,8 @@ public class TeleopNewwithArm  extends OpMode
             robot.Arm.setTargetPosition(840);//for 90 deg
             robot.Arm.setPower(0.6);
             robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Wrist.setTargetPosition(-200); //for 10deg
-            robot.Wrist.setPower(-0.8);
+            robot.Wrist.setTargetPosition(1120); //for 10deg
+            robot.Wrist.setPower(0.8);
             robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
@@ -71,12 +75,12 @@ public class TeleopNewwithArm  extends OpMode
         }
         if (gamepad1.a) {
             robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Wrist.setPower(-0.2);
+            robot.Wrist.setPower(-0.3);
         }
 
         else if (gamepad1.b) {
             robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Wrist.setPower(0.2);
+            robot.Wrist.setPower(0.3);
         }
         else {
             robot.Wrist.setPower(0);
@@ -92,13 +96,13 @@ public class TeleopNewwithArm  extends OpMode
         }
         if (gamepad1.dpad_left) {
 
-            robot.Tipper.setPosition(-0.2);
+            robot.Tipper.setPosition(0.2);
         } else if (gamepad1.dpad_right) {
 
-            robot.Tipper.setPosition(-0.4);
+            robot.Tipper.setPosition(0.4);
 
         } else {
-            robot.Tipper.setPosition(0.20);
+            robot.Tipper.setPosition(0.5);
         }
         /* if (gamepad1.y) {
             robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
