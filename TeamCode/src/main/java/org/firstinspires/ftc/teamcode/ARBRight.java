@@ -34,6 +34,7 @@ public class ARBRight extends LinearOpMode
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -41,6 +42,7 @@ public class ARBRight extends LinearOpMode
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -54,19 +56,25 @@ public class ARBRight extends LinearOpMode
 
         //Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
 
+        robot.Arm.setPower(.8);
+        robot.Arm.setTargetPosition(800);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        /*liftDrive(-MAX_SPEED,-12500, 15.0);// for extending the scissor lift -6720
+
+        liftDrive(-MAX_SPEED,-12500, 15.0);// for extending the scissor lift -6720
         hookDrive(-(MAX_SPEED*0.8), -5500,5);// disengage the hook
         liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift */
 
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 140, 140, 5.0);
         encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1005, 1005, 5.0); // Straight 1524
-        encoderDrive(TURN_SPEED, TURN_SPEED, 390, -390, 5.0); // Left 90
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 910, 910, 5.0); // Straight 1524
+        encoderDrive(TURN_SPEED, TURN_SPEED, -372, 372, 5.0); // Left 90
         encoderDrive(0.8, 0.8, 914, 914, 5.0); // Straight 914
-        robot.Tipper.setPosition(0.4);
-        encoderDrive(-0.8, -0.8,-2438, -2438, 5.0); // Reverse 2438
+        //sleep(500);
+        robot.Tipper.setPosition(0.1);
+        //sleep(500);
+        encoderDrive(-0.8, -0.8,-2300, -2300, 5.0); // Reverse 2438
 
     }
 

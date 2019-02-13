@@ -9,8 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by robot3050 on 10/26/2018.
  */
 @Autonomous(name="Rover: AutoExpirement", group="Rover")
-public class AutoExpirement extends LinearOpMode
-{
+public class AutoExpirement extends LinearOpMode {
     Rover robot = new Rover();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -22,8 +21,7 @@ public class AutoExpirement extends LinearOpMode
     static final double TURN_SPEED = 0.3;
     static final double MAX_SPEED = 1.0;
 
-    public void runOpMode()
-    {
+    public void runOpMode() {
         robot.init(hardwareMap);
 
         //Reseting encoders
@@ -34,13 +32,16 @@ public class AutoExpirement extends LinearOpMode
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.Hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        robot.Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -55,18 +56,19 @@ public class AutoExpirement extends LinearOpMode
         //Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
 
 
-               liftDrive(-MAX_SPEED,-9000, 15.0);// for extending the scissor lift -18000
-                  hookDrive(-(MAX_SPEED*0.8), -3700,5);// disengage the hook
-                liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift
+       //liftDrive(-MAX_SPEED, -9000, 15.0);// for extending the scissor lift -180
+        // hookDrive(-(MAX_SPEED * 0.8), -3700, 5);// disengage the hook
+        //liftDrive(MAX_SPEED, 0, 15.0);// for contracting the scissor lift*/
 
 
         //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -600, -600, 5.0);
         //encoderDrive(-TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
         //encoderDrive(-DRIVE_SPEED, -DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
-       //encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
+        //encoderDrive(TURN_SPEED, -TURN_SPEED, 390, -390, 5.0); // Left 90
         //encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
         //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
-        //ARMdeployment();
+
+        ARMdeployment(0,200); //this  lifts the arm and kicks out the wrist//-for up on the arm ,+ for up on the wrist
 
     }
 
@@ -96,6 +98,9 @@ public class AutoExpirement extends LinearOpMode
             //        keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
+                robot.Arm.setPower(0.4);
+                robot.Arm.setTargetPosition(600);
+                robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
@@ -114,6 +119,7 @@ public class AutoExpirement extends LinearOpMode
             sleep(250);   // optional pause after each move
         }
     }
+
     public void liftDrive(double MAX_SPEED, int limit, double timeoutS) {
 
         // Ensure that the opmode is still active
@@ -141,44 +147,52 @@ public class AutoExpirement extends LinearOpMode
     }
     //public void hookDrive(double hookspeed, int hooklimit, double htimeoutS) {
 
-     public void hookDrive( double MAX_SPEED,int limit,int timeoutS) {
+    public void hookDrive(double MAX_SPEED, int limit, int timeoutS) {
 
         // Ensure that the opmode is still active
-            if (opModeIsActive()) {
-                robot.Hook.setTargetPosition(limit);
-                // Turn On RUN_TO_POSITION
-                robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                // reset the timeout time and start motion.
-                runtime.reset();
-                robot.Hook.setPower(MAX_SPEED);
-                //        keep looping while we are still active, and there is time left, and both motors are running.
-                while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
-                        (robot.Hook.isBusy())) {
-                    // Display it for the driver.
-                    telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
-                    telemetry.addData("Path2", "Running at %7d :%7d", robot.Lift.getCurrentPosition());
-                }
-                // Stop all motion;
-                robot.Hook.setPower(0);
-                // Turn off RUN_TO_POSITION
-                robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                sleep(250);   // optional pause after each move
+        if (opModeIsActive()) {
+            robot.Hook.setTargetPosition(limit);
+            // Turn On RUN_TO_POSITION
+            robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Hook.setPower(MAX_SPEED);
+            //        keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
+                    (robot.Hook.isBusy())) {
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
+                telemetry.addData("Path2", "Running at %7d :%7d", robot.Lift.getCurrentPosition());
             }
-    }
-    public void ARMdeployment(){
-        //if (opModeIsActive());
-        while( robot.Arm.getCurrentPosition()<800)
-        robot.Arm.setPower(0.6);
-        while(robot.Wrist.getCurrentPosition()<800)
-        robot.Arm.setTargetPosition(800);
-        robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while (opModeIsActive()&& robot.Arm.getCurrentPosition()>600);
-        robot.Wrist.setPower(0.5);
-        robot.Wrist.setTargetPosition(800);
-        robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            // Stop all motion;
+            robot.Hook.setPower(0);
+            // Turn off RUN_TO_POSITION
+            robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sleep(250);   // optional pause after each move
         }
+    }
+
+    public void ARMdeployment(int armtarget, int wristtarget) {
+        if (opModeIsActive() ) {
+            robot.Arm.setTargetPosition(armtarget);
+            robot.Wrist.setTargetPosition(wristtarget);
+            robot.Arm.setPower(0.6);
+            robot.Wrist.setPower(0.8);
+            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            while (opModeIsActive() &&( robot.Arm.isBusy() && robot.Wrist.isBusy())) {
+                telemetry.addData("Path1", "Running to %7d :%7d",robot.Arm.getCurrentPosition());
+                telemetry.addData("Path2", "Running at %7d :%7d",robot.Wrist.getCurrentPosition());
+            }
+
+
+
+
+        }
+        robot.Arm.setPower(0);
+        robot.Wrist.setPower(0);
 
     }
+}
 

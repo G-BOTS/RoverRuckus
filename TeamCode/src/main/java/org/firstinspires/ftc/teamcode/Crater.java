@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created by robot3050 on 10/26/2018.
  */
-@Autonomous(name="Rover: ARBLeft", group="Rover")
-public class ARBLeft extends LinearOpMode
-{
+@Autonomous(name="Rover: Crater", group="Rover")
+public class Crater extends LinearOpMode {
     Rover robot = new Rover();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -22,9 +22,12 @@ public class ARBLeft extends LinearOpMode
     static final double TURN_SPEED = 0.3;
     static final double MAX_SPEED = 1.0;
 
-    public void runOpMode()
-    {
+    public void runOpMode() {
         robot.init(hardwareMap);
+
+//robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
+//robot.rightMotor.setDirection(DcMotor.Direction.FORWARD);
+
 
         //Reseting encoders
         telemetry.addData("Status", "Resetting Encoders");
@@ -36,15 +39,11 @@ public class ARBLeft extends LinearOpMode
         robot.Hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
-       // robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
@@ -57,18 +56,11 @@ public class ARBLeft extends LinearOpMode
 
         liftDrive(-MAX_SPEED,-12500, 15.0);// for extending the scissor lift -6720
         hookDrive(-(MAX_SPEED*0.8), -5500,5);// disengage the hook
-        liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift */
+        liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift*/
 
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 120, 120, 5.0);
-        encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 910, 910, 5.0); // Straight 1524
-        encoderDrive(TURN_SPEED, TURN_SPEED, -320, 320, 5.0); // Left 90
-        encoderDrive(0.8, 0.8, 1500, 1500, 5.0); // Straight 914
-        //sleep(500);
-        robot.Tipper.setPosition(0.1);
-        //sleep(500);
-        encoderDrive(0.8, 0.8,-2300, -2300, 5.0); // Reverse 2438
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 950, 950, 5.0);
+
 
     }
 
@@ -116,6 +108,7 @@ public class ARBLeft extends LinearOpMode
             sleep(250);   // optional pause after each move
         }
     }
+
     public void liftDrive(double MAX_SPEED, int limit, double timeoutS) {
 
         // Ensure that the opmode is still active
@@ -168,4 +161,3 @@ public class ARBLeft extends LinearOpMode
         }
     }
 }
-

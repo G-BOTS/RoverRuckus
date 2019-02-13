@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by robot3050 on 10/26/2018.
  */
 @Autonomous(name="Rover: OLDARRRight", group="Rover")
-@Disabled
+//@Disabled
 public class OLDARRRight extends LinearOpMode
 {
     Rover robot = new Rover();

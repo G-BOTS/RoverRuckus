@@ -8,8 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Rover: TeleopNewwithArm", group = "Rover")
 //@Disabled
-public class TeleopNewwithArm  extends OpMode
-{
+public class TeleopNewwithArm  extends OpMode {
 
     Rover robot = new Rover();
 
@@ -52,19 +51,19 @@ public class TeleopNewwithArm  extends OpMode
         if (gamepad1.x) {
 
             //robot.Arm.setPower(-0.2);
-            robot.Arm.setTargetPosition(200);
-            robot.Arm.setPower(0.2);
-            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //robot.Arm.setTargetPosition(200);
+            robot.Arm.setPower(-0.1);
+            //robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         } else if (gamepad1.y) {
 
             //robot.Arm.setPower(0.6);
-            robot.Arm.setTargetPosition(840);//for 90 deg
+            //robot.Arm.setTargetPosition(840);//for 90 deg
             robot.Arm.setPower(0.6);
-            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            /*robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.Wrist.setTargetPosition(1120); //for 10deg
             robot.Wrist.setPower(0.8);
-            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);*/
 
 
         } else {
@@ -74,23 +73,25 @@ public class TeleopNewwithArm  extends OpMode
 
         }
         if (gamepad1.a) {
-            robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Wrist.setPower(-0.3);
-        }
-
-        else if (gamepad1.b) {
-            robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //robot.Wrist.setTargetPosition(1120); //for 10deg
             robot.Wrist.setPower(0.3);
-        }
-        else {
+            //robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            /*robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Wrist.setPower(-0.3);*/
+        } else if (gamepad1.b) {
+            //robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Wrist.setPower(-0.3);
+        } else {
             robot.Wrist.setPower(0);
+
         }
         if (gamepad1.dpad_up) {
 
-            robot.Intake.setPower(-0.2);
+            robot.Intake.setPower(-0.4);
         } else if (gamepad1.dpad_down) {
 
-            robot.Intake.setPower(0.2);
+            robot.Intake.setPower(0.4);
         } else {
             robot.Intake.setPower(0);
         }
@@ -142,10 +143,56 @@ public class TeleopNewwithArm  extends OpMode
 
         robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
+
+    if (gamepad2.x)
+
+    {
+
+        //robot.Arm.setPower(-0.2);
+        //robot.Arm.setTargetPosition(200);
+        robot.Arm.setPower(-0.1);
+
+    }//robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    else if (gamepad2.y)
+    {
+
+        //robot.Arm.setPower(0.6);
+        //robot.Arm.setTargetPosition(840);//for 90 deg
+        robot.Arm.setPower(0.6);
+            /*robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Wrist.setTargetPosition(1120); //for 10deg
+            robot.Wrist.setPower(0.8);
+            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);*/
+
+
+    }
+    else
+        {
+
+        robot.Arm.setPower(0.00); // just enough to keep the arm from falling
+
+
+    }
+        if (gamepad2.a) {
+        //robot.Wrist.setTargetPosition(1120); //for 10deg
+        robot.Wrist.setPower(0.8);
+        //robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            /*robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Wrist.setPower(-0.3);*/
+    }
+    else if (gamepad2.b) {
+        //robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Wrist.setPower(-0.3);
+    } else {
+        robot.Wrist.setPower(0);
+
+    }
+
         telemetry.addData("Lift Encoder", robot.Lift.getCurrentPosition());
         telemetry.addData("Hook Encoder", robot.Hook.getCurrentPosition());
         telemetry.addData("Arm Encoder", robot.Arm.getCurrentPosition());
+        telemetry.addData("Wrist encoder", robot.Wrist.getCurrentPosition());
         // telemetry.addData("ArmTarget", ArmTarget);
     }
 }
-
