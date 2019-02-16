@@ -68,7 +68,7 @@ public class AutoExpirement extends LinearOpMode {
         //encoderDrive(-0.8, -0.8, -914, -914, 5.0); // Straight 914
         //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
 
-        ARMdeployment(0,200); //this  lifts the arm and kicks out the wrist//-for up on the arm ,+ for up on the wrist
+        ARMdeployment(1260,600); //this  lifts the arm and kicks out the wrist//+for up on the arm ,+ for up on the wrist
 
     }
 
@@ -173,26 +173,30 @@ public class AutoExpirement extends LinearOpMode {
     }
 
     public void ARMdeployment(int armtarget, int wristtarget) {
-        if (opModeIsActive() ) {
-            robot.Arm.setTargetPosition(armtarget);
-            robot.Wrist.setTargetPosition(wristtarget);
-            robot.Arm.setPower(0.6);
-            robot.Wrist.setPower(0.8);
-            robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //if (opModeIsActive() ) {//&& (robot.Arm.isBusy()||robot.Wrist.isBusy())) {
+           do {
+               robot.Arm.setTargetPosition(armtarget);
+               robot.Wrist.setTargetPosition(wristtarget);
+               robot.Arm.setPower(0.6);
+               robot.Wrist.setPower(0.8);
+               robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+               if(robot.Arm.getCurrentPosition()>400){
+               robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
+           }
 
-            while (opModeIsActive() &&( robot.Arm.isBusy() && robot.Wrist.isBusy())) {
-                telemetry.addData("Path1", "Running to %7d :%7d",robot.Arm.getCurrentPosition());
-                telemetry.addData("Path2", "Running at %7d :%7d",robot.Wrist.getCurrentPosition());
-            }
+           while (opModeIsActive() &&( robot.Arm.isBusy() || robot.Wrist.isBusy()));
+               // telemetry.addData("Arm", "Running to %7d :%7d",robot.Arm.getCurrentPosition());
+               // telemetry.addData("Wrist", "Running at %7d :%7d",robot.Wrist.getCurrentPosition());
 
 
+        robot.Arm.setPower(0);
+           robot.Wrist.setPower(0);
 
 
         }
-        robot.Arm.setPower(0);
-        robot.Wrist.setPower(0);
+        //robot.Arm.setPower(0);
+        //robot.Wrist.setPower(0);
 
     }
-}
+
 
