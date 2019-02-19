@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name = "Rover: TeleopNewwithArm", group = "Rover")
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class TeleopNewwithArm  extends OpMode {
 
     Rover robot = new Rover();
+    public ElapsedTime runtime = new ElapsedTime();
 
 
     @Override
@@ -24,10 +26,10 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
+           }
 
     @Override
-    public void loop() {
+       public void loop() {
         robot.leftMotor.setPower(gamepad1.left_stick_y);
         robot.rightMotor.setPower(gamepad1.right_stick_y);
         robot.Arm.setPower(gamepad2.left_stick_y);
@@ -107,89 +109,47 @@ public class TeleopNewwithArm  extends OpMode {
         } else {
             robot.Tipper.setPosition(0.5);
         }
-        /* if (gamepad1.y) {
-            robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Lift.setTargetPosition(-12000);
-        } else if (gamepad1.a) {
-            robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Lift.setTargetPosition(-100);
-        }
-
-        while (robot.Lift.getCurrentPosition() < robot.Lift.getTargetPosition()) {
-            robot.Lift.setPower(1.0);
-        }
-
-        while (robot.Lift.getCurrentPosition() > robot.Lift.getTargetPosition()) {
-            robot.Lift.setPower(-1.0);
-        }
-
-        robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        if (gamepad1.x) {
-            robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Hook.setTargetPosition(-1000);
-        } else if (gamepad1.b) {
-            robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Hook.setTargetPosition(-10);
-        }
-
-
-        while (robot.Hook.getCurrentPosition() < robot.Hook.getTargetPosition()) {
-            robot.Hook.setPower(1.0);
-        }
-
-        while (robot.Hook.getCurrentPosition() > robot.Hook.getTargetPosition()) {
-            robot.Hook.setPower(-1.0);
-        }
-
-        robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
-
-    /*if (gamepad2.x) //Gamepad Test. Kicks out the Arm and the Wrist with one button.
-
-    {
-
-       robot.Arm.setPower(0.6);
-       robot.Wrist.setPower(0.8);
-
+    if(gamepad2.left_trigger > 0.1){
+        robot.Intake.setPower(0.5);
     }
-    else if (gamepad2.y) //Apart of Gamepad Test. Brings the Arm and Wrist in.
-
-    {
-
-
-        robot.Arm.setPower(-0.1);
-        robot.Wrist.setPower(0.2);
-    } */
-
+    else if (gamepad2.right_trigger > 0.1){
+        robot.Intake.setPower(-0.5);
+    }
+    else {
+        robot.Intake.setPower(0);
+    }
 
     if (gamepad2.x) // Main Game pad 2 controls.
 
     {
 
-        ARMdeployment(800,600);//set arm and wrist to possition.
+        ARMdeployment(1000,600,3);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(1260,600);
+        ARMdeployment(1400,800,3);//set arm and wrist to possition.
 
     }
     else
         {
 
-        robot.Arm.setPower(0.00); // just enough to keep the arm from falling
+        robot.Arm.setPower(0.00); // just enough to keep the arm from fallin
+             robot.Wrist.setPower(0);
 
 
     }
         if (gamepad2.a) {
-            ARMdeployment(2000, 800);
+            ARMdeployment(-100, 600,3);
         }
         else if (gamepad2.b) {
-            ARMdeployment(1260, 600);
+            ARMdeployment(1260, 0,3);
         }
          else {
         robot.Wrist.setPower(0);
+        robot.Arm.setPower(0);
 
     }
 
@@ -199,19 +159,19 @@ public class TeleopNewwithArm  extends OpMode {
         telemetry.addData("Wrist encoder", robot.Wrist.getCurrentPosition());
         // telemetry.addData("ArmTarget", ArmTarget);
     }
-    public void ARMdeployment(int armtarget,int wristtarget) {
-    //if (opModeIsActive() ) {//&& (robot.Arm.isBusy()||robot.Wrist.isBusy())) {
+    public void ARMdeployment(int armtarget,int wristtarget, double timeoutS) {
+    runtime.reset();
     do {
         robot.Arm.setTargetPosition(armtarget);
         robot.Wrist.setTargetPosition(wristtarget);
         robot.Arm.setPower(0.6);
-        robot.Wrist.setPower(0.8);
+        robot.Wrist.setPower(1);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if(robot.Arm.getCurrentPosition()>400){
             robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
     }
 
-    while (robot.Arm.isBusy() || robot.Wrist.isBusy());
+    while ((runtime.seconds()< timeoutS)&&(robot.Arm.isBusy() || robot.Wrist.isBusy()));
     // telemetry.addData("Arm", "Running to %7d :%7d",robot.Arm.getCurrentPosition());
     // telemetry.addData("Wrist", "Running at %7d :%7d",robot.Wrist.getCurrentPosition());
 

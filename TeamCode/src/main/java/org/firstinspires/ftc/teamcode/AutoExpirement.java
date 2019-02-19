@@ -20,6 +20,7 @@ public class AutoExpirement extends LinearOpMode {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
     static final double MAX_SPEED = 1.0;
+    public int wristtarget = 0;
 
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -180,7 +181,10 @@ public class AutoExpirement extends LinearOpMode {
                robot.Arm.setPower(0.6);
                robot.Wrist.setPower(0.8);
                robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-               if(robot.Arm.getCurrentPosition()>400){
+               robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+               if(robot.Arm.getCurrentPosition()>1000){
+               wristtarget = 200;
+               robot.Wrist.setTargetPosition(wristtarget);
                robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
            }
 
