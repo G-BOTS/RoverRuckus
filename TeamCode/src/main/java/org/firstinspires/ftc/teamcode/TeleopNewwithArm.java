@@ -130,7 +130,7 @@ public class TeleopNewwithArm  extends OpMode {
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(1400,800,3);//set arm and wrist to possition.
+        ARMdeployment(1600,1000,3);//set arm and wrist to possition.
 
     }
     else
@@ -142,7 +142,7 @@ public class TeleopNewwithArm  extends OpMode {
 
     }
         if (gamepad2.a) {
-            ARMdeployment(-100, 600,3);
+            ARMdeployment(-100, 800,3);
         }
         else if (gamepad2.b) {
             ARMdeployment(1260, 0,3);
