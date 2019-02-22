@@ -88,7 +88,7 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        int Indicator=0;
+       // int Indicator=0;
         initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
@@ -131,13 +131,13 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
-                            Indicator=1;
+                            //Indicator=1;
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right");
-                            Indicator=2;
+                            //Indicator=2;
                           } else {
                             telemetry.addData("Gold Mineral Position", "Center");
-                            Indicator=3;
+                            //Indicator=3;
                           }
                         }
                       }

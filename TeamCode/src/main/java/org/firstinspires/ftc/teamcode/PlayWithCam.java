@@ -81,6 +81,7 @@ public class PlayWithCam extends LinearOpMode {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
+        int Indicator=0;
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
@@ -121,11 +122,17 @@ public class PlayWithCam extends LinearOpMode {
                             }
                             if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                                 if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+                                    Indicator=1;
                                     telemetry.addData("Gold Mineral Position", "Left");
+                                    //Indicator=1;
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+                                    Indicator=2;
                                     telemetry.addData("Gold Mineral Position", "Right");
+                                    //Indicator=2;
                                 } else {
+                                    Indicator=3;
                                     telemetry.addData("Gold Mineral Position", "Center");
+                                    //Indicator=3;
                                 }
                             }
                         }
@@ -137,6 +144,17 @@ public class PlayWithCam extends LinearOpMode {
 
         if (tfod != null) {
             tfod.shutdown();
+        }
+        if (Indicator==1) {
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+            encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
+        }    else if (Indicator==2){
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+            encoderDrive(TURN_SPEED, TURN_SPEED, 220, 220, 5.0);
+
+        }else  {
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+            encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
         }
     }
 
