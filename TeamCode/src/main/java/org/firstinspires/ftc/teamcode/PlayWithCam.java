@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-import java.util.List;
 
 /**
  * This 2018-2019 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -47,7 +45,7 @@ public class PlayWithCam extends LinearOpMode {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
     static final double MAX_SPEED = 1.0;
-    public int wristtarget = 0;
+    //public int wristtarget = 0;
 
 
     /*
@@ -81,19 +79,34 @@ public class PlayWithCam extends LinearOpMode {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
-        int Indicator=0;
+        robot.init(hardwareMap);
 
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-            initTfod();
-        } else {
-            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Hook.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
 
         /** Wait for the game to begin */
+      // Indicator=0;
         telemetry.addData(">", "Press Play to start tracking");
+        //telemetry.addData("indicator",Indicator);
         telemetry.update();
         waitForStart();
 
+        int Indicator;
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
@@ -122,17 +135,28 @@ public class PlayWithCam extends LinearOpMode {
                             }
                             if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                                 if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                                    Indicator=1;
+                                    Indicator = 1;
                                     telemetry.addData("Gold Mineral Position", "Left");
                                     //Indicator=1;
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                                    Indicator=2;
+                                    Indicator = 2;
                                     telemetry.addData("Gold Mineral Position", "Right");
                                     //Indicator=2;
                                 } else {
-                                    Indicator=3;
+                                    Indicator = 3;
                                     telemetry.addData("Gold Mineral Position", "Center");
                                     //Indicator=3;
+                                }
+                                if (Indicator==1) {
+                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                    encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
+                                }    else if (Indicator==2){
+                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                    encoderDrive(TURN_SPEED, TURN_SPEED, 220, 220, 5.0);
+
+                                }else  {
+                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                    encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
                                 }
                             }
                         }
@@ -145,7 +169,7 @@ public class PlayWithCam extends LinearOpMode {
         if (tfod != null) {
             tfod.shutdown();
         }
-        if (Indicator==1) {
+        /*if (Indicator==1) {
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
             encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
         }    else if (Indicator==2){
@@ -155,7 +179,7 @@ public class PlayWithCam extends LinearOpMode {
         }else  {
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
             encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
-        }
+        }*/
     }
 
     /**

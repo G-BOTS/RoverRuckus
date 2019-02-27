@@ -71,11 +71,11 @@ public class Rover
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
