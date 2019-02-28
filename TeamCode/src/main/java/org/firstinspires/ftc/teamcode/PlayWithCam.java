@@ -19,10 +19,10 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 /**
  * This 2018-2019 OpMode illustrates the basics of using the TensorFlow Object Detection API to
  * determine the position of the gold and silver minerals.
- *
+ * <p>
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
- *
+ * <p>
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
@@ -35,8 +35,8 @@ public class PlayWithCam extends LinearOpMode {
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
     private static final String VUFORIA_KEY = " Adiq0Gb/////AAAAme76+E2WhUFamptVVqcYOs8rfAWw8b48caeMVM89dEw04s+/mRV9TqcNvLkSArWax6t5dAy9ISStJNcnGfxwxfoHQIRwFTqw9i8eNoRrlu+8X2oPIAh5RKOZZnGNM6zNOveXjb2bu8yJTQ1cMCdiydnQ/Vh1mSlku+cAsNlmfcL0b69Mt2K4AsBiBppIesOQ3JDcS3g60JeaW9p+VepTG1pLPazmeBTBBGVx471G7sYfkTO0c/W6hyw61qmR+y7GJwn/ECMmXZhhHkNJCmJQy3tgAeJMdKHp62RJqYg5ZLW0FsIh7cOPRkNjpC0GmMCMn8AbtfadVZDwn+MPiF02ZbthQN1N+NEUtURP0BWB1CmA\n ";
-    private TFObjectDetector tfod;
-    private VuforiaLocalizer vuforia;
+    //private TFObjectDetector tfod;
+    // private VuforiaLocalizer vuforia;
 
     static final double COUNTS_PER_REV = 1120;
     static final double DRIVE_GEAR_REDUCTION = 1;
@@ -60,25 +60,30 @@ public class PlayWithCam extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    //private static final String VUFORIA_KEY = " Adiq0Gb/////AAAAme76+E2WhUFamptVVqcYOs8rfAWw8b48caeMVM89dEw04s+/mRV9TqcNvLkSArWax6t5dAy9ISStJNcnGfxwxfoHQIRwFTqw9i8eNoRrlu+8X2oPIAh5RKOZZnGNM6zNOveXjb2bu8yJTQ1cMCdiydnQ/Vh1mSlku+cAsNlmfcL0b69Mt2K4AsBiBppIesOQ3JDcS3g60JeaW9p+VepTG1pLPazmeBTBBGVx471G7sYfkTO0c/W6hyw61qmR+y7GJwn/ECMmXZhhHkNJCmJQy3tgAeJMdKHp62RJqYg5ZLW0FsIh7cOPRkNjpC0GmMCMn8AbtfadVZDwn+MPiF02ZbthQN1N+NEUtURP0BWB1CmA\n ";
+    // private static final String VUFORIA_KEY = " Adiq0Gb/////AAAAme76+E2WhUFamptVVqcYOs8rfAWw8b48caeMVM89dEw04s+/mRV9TqcNvLkSArWax6t5dAy9ISStJNcnGfxwxfoHQIRwFTqw9i8eNoRrlu+8X2oPIAh5RKOZZnGNM6zNOveXjb2bu8yJTQ1cMCdiydnQ/Vh1mSlku+cAsNlmfcL0b69Mt2K4AsBiBppIesOQ3JDcS3g60JeaW9p+VepTG1pLPazmeBTBBGVx471G7sYfkTO0c/W6hyw61qmR+y7GJwn/ECMmXZhhHkNJCmJQy3tgAeJMdKHp62RJqYg5ZLW0FsIh7cOPRkNjpC0GmMCMn8AbtfadVZDwn+MPiF02ZbthQN1N+NEUtURP0BWB1CmA\n ";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
      */
-    ////private VuforiaLocalizer vuforia;
+    private VuforiaLocalizer vuforia;
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
      * Detection engine.
      */
-    //private TFObjectDetector tfod;
+    private TFObjectDetector tfod;
 
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
         robot.init(hardwareMap);
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -97,10 +102,8 @@ public class PlayWithCam extends LinearOpMode {
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-
-
         /** Wait for the game to begin */
-      // Indicator=0;
+        // Indicator=0;
         telemetry.addData(">", "Press Play to start tracking");
         //telemetry.addData("indicator",Indicator);
         telemetry.update();
@@ -147,17 +150,20 @@ public class PlayWithCam extends LinearOpMode {
                                     telemetry.addData("Gold Mineral Position", "Center");
                                     //Indicator=3;
                                 }
-                                if (Indicator==1) {
-                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                    encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-                                }    else if (Indicator==2){
-                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                    encoderDrive(TURN_SPEED, TURN_SPEED, 220, 220, 5.0);
+                                if ((updatedRecognitions.size() == 3) && (Indicator != 0)) {
 
-                                }else  {
-                                    encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                    encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
+                                    if (Indicator == 1) {
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                        encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
+                                    } else if (Indicator == 2) {
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                        encoderDrive(TURN_SPEED, TURN_SPEED, 220, 220, 5.0);
+                                    } else {
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
+                                        encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
+                                    }
                                 }
+
                             }
                         }
                         telemetry.update();
@@ -210,6 +216,7 @@ public class PlayWithCam extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
+
     public void encoderDrive(double leftspeed, double rightspeed, double leftMM, double rightMM, double timeoutS) {
         int newLeftTarget;
         int newRightTarget;
