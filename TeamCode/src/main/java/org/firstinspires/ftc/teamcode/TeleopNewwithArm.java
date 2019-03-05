@@ -56,14 +56,14 @@ public class TeleopNewwithArm  extends OpMode {
 
             //robot.Arm.setPower(-0.2);
             //robot.Arm.setTargetPosition(200);
-            robot.Arm.setPower(-0.1);
+            robot.Arm.setPower(-0.8);
             //robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         } else if (gamepad1.y) {
 
             //robot.Arm.setPower(0.6);
             //robot.Arm.setTargetPosition(840);//for 90 deg
-            robot.Arm.setPower(0.6);
+            robot.Arm.setPower(0.8);
             /*robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.Wrist.setTargetPosition(1120); //for 10deg
             robot.Wrist.setPower(0.8);
@@ -78,26 +78,26 @@ public class TeleopNewwithArm  extends OpMode {
         }
         if (gamepad1.a) {
             //robot.Wrist.setTargetPosition(1120); //for 10deg
-            robot.Wrist.setPower(0.3);
+            robot.Wrist.setPower(0.6);
             //robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             /*robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.Wrist.setPower(-0.3);*/
         } else if (gamepad1.b) {
             //robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Wrist.setPower(-0.3);
+            robot.Wrist.setPower(-0.6);
         } else {
             robot.Wrist.setPower(0);
 
         }
         if (gamepad1.dpad_up) {
 
-            robot.Intake.setPower(-0.4);
+            robot.Hand.setPosition(0);
         } else if (gamepad1.dpad_down) {
 
-            robot.Intake.setPower(0.4);
+            robot.Hand.setPosition(0.4);
         } else {
-            robot.Intake.setPower(0);
+            robot.Hand.setPosition(0);
         }
         if (gamepad1.dpad_left) {
 
@@ -125,27 +125,27 @@ public class TeleopNewwithArm  extends OpMode {
 
     {
 
-        ARMdeployment(1000,600,3);//set arm and wrist to possition.
+        ARMdeployment(-1500,1200,3);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(1600,1000,3);//set arm and wrist to possition.
+        ARMdeployment(-900,1400,3);//set arm and wrist to possition.
 
     }
     else
         {
 
-        robot.Arm.setPower(0.00); // just enough to keep the arm from fallin
+        robot.Arm.setPower(0.00); // just enough to keep the arm from falling
              robot.Wrist.setPower(0);
 
 
     }
         if (gamepad2.a) {
-            ARMdeployment(-100, 800,3);
+            ARMdeployment(-0, 0,3);
         }
         else if (gamepad2.b) {
-            ARMdeployment(1260, 0,3);
+            ARMdeployment(-550, 200,3);
         }
          else {
         robot.Wrist.setPower(0);
@@ -164,11 +164,11 @@ public class TeleopNewwithArm  extends OpMode {
     do {
         robot.Arm.setTargetPosition(armtarget);
         robot.Wrist.setTargetPosition(wristtarget);
-        robot.Arm.setPower(0.6);
-        robot.Wrist.setPower(1);
+        robot.Arm.setPower(0.3);
+        robot.Wrist.setPower(0.4);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if(robot.Arm.getCurrentPosition()>400){
-            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);}
+        //if(robot.Arm.getCurrentPosition()>400){
+            robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     while ((runtime.seconds()< timeoutS)&&(robot.Arm.isBusy() || robot.Wrist.isBusy()));

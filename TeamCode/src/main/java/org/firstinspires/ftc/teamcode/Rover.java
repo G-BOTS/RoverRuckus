@@ -25,6 +25,7 @@ public class Rover
     public DcMotor Intake = null;
     public DistanceSensor sensorRange = null;
     public Servo Tipper = null;
+    public Servo Hand = null;
    // public Servo    rightClaw   = null;
 
 
@@ -45,6 +46,7 @@ public class Rover
         Wrist = ahwmap.get(DcMotor.class,"wrist");
         Intake  =  ahwmap.get(DcMotor.class,"intake");
        Tipper = ahwmap.get(Servo.class, "tipper");
+       Hand=ahwmap.get(Servo.class, "hand");
        // leftClaw  = ahwmap.get(Servo.class, "left_hand");
 
         //sensorRange = ahwmap.get(DistanceSensor.class,"sensor_range");
@@ -59,6 +61,7 @@ public class Rover
         Wrist.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.FORWARD);
         Tipper.setPosition(0.5);//MID_SERVO);
+        Hand.setPosition(0);
        // rightClaw.setPosition(MID_SERVO);
 
         leftMotor.setPower(0);
