@@ -90,10 +90,10 @@ public class TeleopNewwithArm  extends OpMode {
             robot.Wrist.setPower(0);
 
         }
-        if (gamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
 
             robot.Hand.setPosition(0);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
 
             robot.Hand.setPosition(0.4);
         } else {
@@ -120,17 +120,28 @@ public class TeleopNewwithArm  extends OpMode {
     else {
         robot.Intake.setPower(0);
     }
+    if(gamepad2.right_bumper ){
+           ARMdeployment(-1400,1200,2);
+        }
+        else if (gamepad2.left_bumper){
+            ARMdeployment(-1300,1200,2);
+        }
+        else {
+            robot.Arm.setPower(0.00); // just enough to keep the arm from falling
+            robot.Wrist.setPower(0);
+            robot.Intake.setPower(0);
+        }
 
     if (gamepad2.x) // Main Game pad 2 controls.
 
     {
 
-        ARMdeployment(-1500,1200,3);//set arm and wrist to possition.
+        ARMdeployment(-1500,1200,2);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(-900,1400,3);//set arm and wrist to possition.
+        ARMdeployment(-850,1400,2);//set arm and wrist to possition.
 
     }
     else
@@ -142,10 +153,10 @@ public class TeleopNewwithArm  extends OpMode {
 
     }
         if (gamepad2.a) {
-            ARMdeployment(-0, 0,3);
+            ARMdeployment(-0, 0,2);
         }
         else if (gamepad2.b) {
-            ARMdeployment(-550, 200,3);
+            ARMdeployment(-550, 200,2);
         }
          else {
         robot.Wrist.setPower(0);
