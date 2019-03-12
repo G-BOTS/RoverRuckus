@@ -54,6 +54,7 @@ public class AutoExpirement extends LinearOpMode {
         robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        int pLacement = 2;
 
         //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
         //robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -73,12 +74,24 @@ public class AutoExpirement extends LinearOpMode {
         //liftDrive(MAX_SPEED, 0, 15.0);// for contracting the scissor lift*/
 
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 5.0);
-        //encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-        //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -1005, -1005, 5.0); // Straight 1524
-        //encoderDrive(TURN_SPEED, TURN_SPEED, 390, -390, 5.0); // Left 90
-        //encoderDrive(0.8, 0.8, -914, -914, 5.0); // Straight 914
-        //encoderDrive(0.8, 0.8,2438, 2438, 5.0); // Reverse 2438
+       /** This auto drive works for when we can detect the position of the gold
+        * if (pLacement == 1) {// red right blue right for left block
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -150, 150, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1000, 1000, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 330, -330, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
+        } else if (pLacement == 2) { //redleft blue left for right block
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 150, -150, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1000, 1000, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -330, 330, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -15000, -15000, 5.0);
+
+        }else {//for center
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1400, 1400, 3.0); // Straight 1524
+        }**/
 
         //ARMdeployment(1260,600); //this  lifts the arm and kicks out the wrist//+for up on the arm ,+ for up on the wrist
 
