@@ -178,7 +178,7 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Arm.setPower(0.3);
         robot.Wrist.setPower(0.4);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        if (robot.Arm.getCurrentPosition() >= armtarget * 0.1) {
+        if (robot.Arm.getCurrentPosition() >= armtarget * 0.1) {//this is soposed to give the arm time to come up before the wrist operate
         robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     }
