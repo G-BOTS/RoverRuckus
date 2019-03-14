@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @TeleOp(name = "Rover: TeleopNewwithArm", group = "Rover")
 //@Disabled
@@ -92,12 +92,12 @@ public class TeleopNewwithArm  extends OpMode {
         }
         if (gamepad2.dpad_up) {
 
-            robot.Hand.setPosition(0);
+            robot.Hand.setPosition(0.1);
         } else if (gamepad2.dpad_down) {
 
             robot.Hand.setPosition(0.4);
         } else {
-            robot.Hand.setPosition(0);
+            robot.Hand.setPosition(0.01);
         }
         if (gamepad1.dpad_left) {
 
@@ -115,16 +115,16 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Intake.setPower(0.5);
     }
     else if (gamepad2.right_trigger > 0.1){
-        ARMdeployment(-700,1200,3);
+        ARMdeployment(-700,1200,200,3);
     }
     else {
         robot.Intake.setPower(0);
     }
     if(gamepad2.right_bumper ){
-           ARMdeployment(-1400,1200,1);
+           ARMdeployment(-1400,1200,200,1);
         }
         else if (gamepad2.left_bumper){
-            ARMdeployment(-1300,1200,1);
+            ARMdeployment(-1300,1200,200,1);
         }
         else {
             robot.Arm.setPower(0.00); // just enough to keep the arm from falling
@@ -136,12 +136,12 @@ public class TeleopNewwithArm  extends OpMode {
 
     {
 
-        ARMdeployment(-1500,1200,2);//set arm and wrist to possition.
+        ARMdeployment(-1500,1200,200,2);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(-875,1200,2);//set arm and wrist to possition.
+        ARMdeployment(-875,1200,200,2);//set arm and wrist to possition.
 
     }
     else
@@ -153,10 +153,10 @@ public class TeleopNewwithArm  extends OpMode {
 
     }
         if (gamepad2.a) {
-            ARMdeployment(-1300, 1200,1);
+            ARMdeployment(-1300, 1200,200,1);
         }
         else if (gamepad2.b) {
-            ARMdeployment(-550, 200,1);
+            ARMdeployment(-550, 200,200,1);
         }
          else {
         robot.Wrist.setPower(0);
@@ -170,7 +170,7 @@ public class TeleopNewwithArm  extends OpMode {
         telemetry.addData("Wrist encoder", robot.Wrist.getCurrentPosition());
         // telemetry.addData("ArmTarget", ArmTarget);
     }
-    public void ARMdeployment(int armtarget,int wristtarget, double timeoutS) {
+    public void ARMdeployment(int armtarget,int wristtarget, int delay, double timeoutS) {
     runtime.reset();
     do {
         robot.Arm.setTargetPosition(armtarget);
@@ -178,8 +178,9 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Arm.setPower(0.3);
         robot.Wrist.setPower(0.4);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // wait(500);
-         robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if (robot.Arm.getCurrentPosition() >= armtarget * 0.1) {
+        robot.Wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
     }
 
     while ((runtime.seconds()< timeoutS)&&(robot.Arm.isBusy() || robot.Wrist.isBusy()));

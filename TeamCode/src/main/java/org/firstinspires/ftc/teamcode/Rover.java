@@ -61,7 +61,7 @@ public class Rover
         Wrist.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.FORWARD);
         Tipper.setPosition(0.5);//MID_SERVO);
-        Hand.setPosition(0);
+        Hand.setPosition(0.01);
        // rightClaw.setPosition(MID_SERVO);
 
         leftMotor.setPower(0);
