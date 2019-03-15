@@ -97,7 +97,7 @@ public class TeleopNewwithArm  extends OpMode {
 
             robot.Hand.setPosition(0.4);
         } else {
-            robot.Hand.setPosition(0.01);
+            robot.Hand.setPosition(0.1);
         }
         if (gamepad1.dpad_left) {
 

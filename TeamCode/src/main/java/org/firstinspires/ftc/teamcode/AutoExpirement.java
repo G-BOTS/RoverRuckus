@@ -54,7 +54,7 @@ public class AutoExpirement extends LinearOpMode {
         robot.Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        int pLacement = 3;
+        int pLacement = 1;
 
         //robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
         //robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -95,17 +95,18 @@ public class AutoExpirement extends LinearOpMode {
         // This auto drive works for when we can detect the position of the gold
         if (pLacement == 1) {// red Left blue leftt for left block
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
-            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -150, 150, 3.0);
-            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1000, 1000, 3.0);
-            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -332, 332, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -200, 200, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1200, 1200, 3.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -340, 340, 5.0);
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1900, 1900, 5.0);
-            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -2000, -2000, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -1000, -1000, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -100, 100, 5.0);
+            encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -1000, -1000, 3.0);
         } else if (pLacement == 2) { //redleft blue left for right block
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 150, -150, 3.0);
             encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
-            //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -330, 330, 5.0);
-           // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
+
 
 
         } else {//for center
