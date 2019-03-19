@@ -26,7 +26,7 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.Wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-           }
+    }
 
     @Override
        public void loop() {
@@ -115,16 +115,16 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Intake.setPower(0.5);
     }
     else if (gamepad2.right_trigger > 0.1){
-        ARMdeployment(-700,1200,200,3);
+        ARMdeployment(650,1200,200,3);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
     }
     else {
         robot.Intake.setPower(0);
     }
     if(gamepad2.right_bumper ){
-           ARMdeployment(-1400,1200,200,1);
+           ARMdeployment(1400,1200,200,1);
         }
         else if (gamepad2.left_bumper){
-            ARMdeployment(-1300,1200,200,1);
+            ARMdeployment(1300,1200,200,1);
         }
         else {
             robot.Arm.setPower(0.00); // just enough to keep the arm from falling
@@ -136,12 +136,12 @@ public class TeleopNewwithArm  extends OpMode {
 
     {
 
-        ARMdeployment(-1500,1200,200,2);//set arm and wrist to possition.
+        ARMdeployment(1500,1200,200,2);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(-875,1200,200,2);//set arm and wrist to possition.
+        ARMdeployment(875,1200,200,2);//set arm and wrist to possition.
 
     }
     else
@@ -153,10 +153,10 @@ public class TeleopNewwithArm  extends OpMode {
 
     }
         if (gamepad2.a) {
-            ARMdeployment(-1300, 1200,200,1);
+            ARMdeployment(1600, 1200,200,1);//used to be -1300
         }
         else if (gamepad2.b) {
-            ARMdeployment(-550, 200,200,1);
+            ARMdeployment(550, 200,200,1);
         }
          else {
         robot.Wrist.setPower(0);

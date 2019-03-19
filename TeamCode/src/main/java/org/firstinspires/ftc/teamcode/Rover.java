@@ -57,7 +57,7 @@ public class Rover
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         Lift.setDirection(DcMotor.Direction.FORWARD);
         Hook.setDirection(DcMotor.Direction.FORWARD);
-        Arm.setDirection(DcMotor.Direction.FORWARD);
+        Arm.setDirection(DcMotor.Direction.REVERSE);
         Wrist.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.FORWARD);
         Tipper.setPosition(0.5);//MID_SERVO);
