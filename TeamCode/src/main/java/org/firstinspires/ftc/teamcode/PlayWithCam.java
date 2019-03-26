@@ -109,8 +109,8 @@ public class PlayWithCam extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        int Indicator;
-        if (opModeIsActive()) {
+        int Indicator = 0;
+        if ((opModeIsActive()) && (Indicator < 3)){
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();

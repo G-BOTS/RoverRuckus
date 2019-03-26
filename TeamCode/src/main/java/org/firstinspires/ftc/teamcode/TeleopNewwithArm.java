@@ -36,7 +36,9 @@ public class TeleopNewwithArm  extends OpMode {
         robot.Wrist.setPower(gamepad2.right_stick_y);
 
         if (gamepad1.right_bumper) {
-            robot.Lift.setPower(-1);
+           robot.Lift.setPower(-1);
+
+
         } else if (gamepad1.right_trigger > .01) {
             robot.Lift.setPower(1);
         } else {
@@ -112,19 +114,20 @@ public class TeleopNewwithArm  extends OpMode {
 
 
     if(gamepad2.left_trigger > 0.1){
-        robot.Intake.setPower(0.5);
+        robot.leftMotor.setPower((gamepad1.left_stick_y)/2);
+        robot.rightMotor.setPower((gamepad1.right_stick_y)/2);
     }
     else if (gamepad2.right_trigger > 0.1){
-        ARMdeployment(650,1200,200,3);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
+        ARMdeployment(520,1220,200,3);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
     }
     else {
         robot.Intake.setPower(0);
     }
     if(gamepad2.right_bumper ){
-           ARMdeployment(1400,1200,200,1);
+           ARMdeployment(1330,1200,200,1);
         }
         else if (gamepad2.left_bumper){
-            ARMdeployment(1300,1200,200,1);
+            ARMdeployment(1270,1200,200,1);
         }
         else {
             robot.Arm.setPower(0.00); // just enough to keep the arm from falling
@@ -136,12 +139,12 @@ public class TeleopNewwithArm  extends OpMode {
 
     {
 
-        ARMdeployment(1500,1200,200,2);//set arm and wrist to possition.
+        ARMdeployment(1530,1200,200,2);//set arm and wrist to possition.
 
     }
     else if (gamepad2.y) // Main Game Pad 2 controls.
     {
-        ARMdeployment(875,1200,200,2);//set arm and wrist to possition.
+        ARMdeployment(905,1200,200,2);//set arm and wrist to possition.
 
     }
     else
@@ -153,10 +156,10 @@ public class TeleopNewwithArm  extends OpMode {
 
     }
         if (gamepad2.a) {
-            ARMdeployment(1600, 1200,200,1);//used to be -1300
+            ARMdeployment(1655, 1200,200,1);//used to be -1300
         }
         else if (gamepad2.b) {
-            ARMdeployment(550, 200,200,1);
+            ARMdeployment(530, 200,200,1);
         }
          else {
         robot.Wrist.setPower(0);

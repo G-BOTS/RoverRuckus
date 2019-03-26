@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * Created by robot3050 on 10/26/2018.
  */
 @Autonomous(name = "Rover: AutoExpirement", group = "Rover")
-public class AutoExpirement extends LinearOpMode {
+public class AutoExpirement extends LinearOpMode  {
     Rover robot = new Rover();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -145,9 +145,9 @@ public class AutoExpirement extends LinearOpMode {
             //        keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
-                robot.Arm.setPower(0.4);
-                robot.Arm.setTargetPosition(600);
-                robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                //robot.Arm.setPower(0.4);
+                //robot.Arm.setTargetPosition(600);
+                //robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
