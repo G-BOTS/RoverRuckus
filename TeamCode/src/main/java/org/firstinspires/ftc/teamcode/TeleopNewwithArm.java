@@ -118,13 +118,13 @@ public class TeleopNewwithArm  extends OpMode {
         robot.rightMotor.setPower((gamepad1.right_stick_y)/2);
     }
     else if (gamepad2.right_trigger > 0.1){
-        ARMdeployment(520,1220,200,3);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
+        ARMdeployment(551,1529,200,3);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
     }
     else {
         robot.Intake.setPower(0);
     }
     if(gamepad2.right_bumper ){
-           ARMdeployment(1330,1200,200,1);
+           ARMdeployment(100,100,200,1);
         }
         else if (gamepad2.left_bumper){
             ARMdeployment(1270,1200,200,1);
@@ -159,7 +159,7 @@ public class TeleopNewwithArm  extends OpMode {
             ARMdeployment(1655, 1200,200,1);//used to be -1300
         }
         else if (gamepad2.b) {
-            ARMdeployment(530, 200,200,1);
+            ARMdeployment(700, 500,200,1);
         }
          else {
         robot.Wrist.setPower(0);
@@ -178,7 +178,7 @@ public class TeleopNewwithArm  extends OpMode {
     do {
         robot.Arm.setTargetPosition(armtarget);
         robot.Wrist.setTargetPosition(wristtarget);
-        robot.Arm.setPower(0.3);
+        robot.Arm.setPower(0.4);
         robot.Wrist.setPower(0.4);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if (robot.Arm.getCurrentPosition() >= armtarget * 0.1) {//this is soposed to give the arm time to come up before the wrist operate
