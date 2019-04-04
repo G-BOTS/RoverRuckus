@@ -127,7 +127,7 @@ public class TeleopNewwithArm  extends OpMode {
            ARMdeployment(100,100,200,1);
         }
         else if (gamepad2.left_bumper){
-            ARMdeployment(1270,1200,200,1);
+            ARMdeployment(1300,1200,200,1);
         }
         else {
             robot.Arm.setPower(0.00); // just enough to keep the arm from falling
@@ -178,7 +178,7 @@ public class TeleopNewwithArm  extends OpMode {
     do {
         robot.Arm.setTargetPosition(armtarget);
         robot.Wrist.setTargetPosition(wristtarget);
-        robot.Arm.setPower(0.4);
+        robot.Arm.setPower(0.35);
         robot.Wrist.setPower(0.4);
         robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if (robot.Arm.getCurrentPosition() >= armtarget * 0.1) {//this is soposed to give the arm time to come up before the wrist operate

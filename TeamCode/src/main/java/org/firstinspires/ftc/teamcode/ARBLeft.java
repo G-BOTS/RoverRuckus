@@ -66,8 +66,8 @@ public class ARBLeft extends LinearOpMode
         encoderDrive(TURN_SPEED, TURN_SPEED, -320, 320, 5.0); // Left 90
         encoderDrive(0.8, 0.8, 1500, 1500, 5.0); // Straight 914
         //sleep(500);
-        robot.Tipper.setPosition(0.1);//
-        //sleep(500);
+        robot.Tipper.setPosition(0.1);
+        // sleep(500);
         encoderDrive(0.8, 0.8,-2300, -2300, 5.0); // Reverse 2438
 
     }

@@ -55,19 +55,22 @@ public class ARRLeft extends LinearOpMode {
 
 
         liftDrive(-MAX_SPEED,-12500, 15.0);// for extending the scissor lift -6720
-        hookDrive(-(MAX_SPEED*0.8), -500,5);// disengage the hook
+        hookDrive(-MAX_SPEED,-5000,5);// disengage the hook
         liftDrive(MAX_SPEED,0, 15.0);// for contracting the scissor lift*/
 
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 120, 120, 5.0);
         encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 910, 910, 5.0); // Straight 1524
-        encoderDrive(TURN_SPEED, TURN_SPEED, -240, 240, 5.0); // Left 90
-        encoderDrive(0.8, 0.8, 1500, 1500, 5.0); // Straight 914
+        encoderDrive(TURN_SPEED, TURN_SPEED, -260, 260, 5.0); // Left 90
+        encoderDrive(0.8, 0.8, 1350, 1350, 5.0); // Straight 914
         //sleep(500);
         robot.Tipper.setPosition(0.1);
         //sleep(  500);
-        encoderDrive(0.8, 0.8, -2300, -2300, 5.0); // Reverse 2438
+        encoderDrive(0.8, 0.7, -2000, -2000, 5.0); // Reverse 2438
+        //encoderDrive(TURN_SPEED, TURN_SPEED, -200, 200, 1.0); // Left 90
+        //encoderDrive(0.8, 0.7, -1100, -1100, 5.0); // Reverse 2438
+
         encoderDrive(0.2, 0.2, -200, -200, 1.0); // Reverse 2438
 
 
@@ -118,11 +121,11 @@ public class ARRLeft extends LinearOpMode {
         }
     }
 
-    public void liftDrive(double MAX_SPEED, int limit, double timeoutS) {
+    public void liftDrive(double MAX_SPEED, int Llimit, double timeoutS) {
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
-            robot.Lift.setTargetPosition(limit);
+            robot.Lift.setTargetPosition(Llimit);
             // Turn On RUN_TO_POSITION
             robot.Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // reset the timeout time and start motion.
@@ -132,7 +135,7 @@ public class ARRLeft extends LinearOpMode {
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                     (robot.Lift.isBusy())) {
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
+                telemetry.addData("Path1", "Running to %7d :%7d", Llimit, 0);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.Lift.getCurrentPosition());
             }
@@ -151,20 +154,20 @@ public class ARRLeft extends LinearOpMode {
         if (opModeIsActive()) {
             robot.Hook.setTargetPosition(limit);
             // Turn On RUN_TO_POSITION
+            robot.Hook.setPower(MAX_SPEED);
             robot.Hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.Hook.setPower(MAX_SPEED);
+            //robot.Hook.setPower(MAX_SPEED);
             //        keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                     (robot.Hook.isBusy())) {
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", limit, 0);
+                telemetry.addData("Path1", "Running to %7d :%7d", robot.Hook.getCurrentPosition());
                 telemetry.addData("Path2", "Running at %7d :%7d", robot.Lift.getCurrentPosition());
             }
             // Stop all motion;
             robot.Hook.setPower(0);
-            // Turn off RUN_TO_POSITION
             robot.Hook.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sleep(250);   // optional pause after each move
         }
