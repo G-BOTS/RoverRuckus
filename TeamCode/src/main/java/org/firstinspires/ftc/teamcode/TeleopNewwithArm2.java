@@ -5,7 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+class MyTask extends Thread{
 
+
+
+}
 @TeleOp(name = "Rover: TeleopNewwithArm2", group = "Rover")
 //@Disabled
 public class TeleopNewwithArm2  extends OpMode {

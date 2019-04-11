@@ -150,19 +150,28 @@ public class PlayWithCam extends LinearOpMode {
                                     telemetry.addData("Gold Mineral Position", "Center");
                                     //Indicator=3;
                                 }
-                                if ((updatedRecognitions.size() == 3) && (Indicator != 0)) {
+                                //if ((updatedRecognitions.size() == 3)) { //&& (Indicator != 0)) {
 
                                     if (Indicator == 1) {
-                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                        encoderDrive(TURN_SPEED, TURN_SPEED, -220, 220, 5.0); // 304.8 = 1 Foot, Turn left 45 degrees
-                                    } else if (Indicator == 2) {
-                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                        encoderDrive(TURN_SPEED, TURN_SPEED, 220, 220, 5.0);
-                                    } else {
-                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 200, 200, 5.0);
-                                        encoderDrive(TURN_SPEED, TURN_SPEED, 220, -220, 5.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 150, -150, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1000, 1000, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -330, 330, 5.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -15000, -15000, 5.0);
+
+                                        } else if (Indicator == 2) {
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, -150, 150, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1000, 1000, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 330, -330, 5.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 800, 800, 3.0);
+
+                                        } else {
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 100, 100, 3.0);
+                                        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, 1400, 1400, 3.0);
                                     }
-                                }
+
 
                             }
                         }
@@ -244,14 +253,13 @@ public class PlayWithCam extends LinearOpMode {
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
                 robot.Arm.setPower(0.4);
-                robot.Arm.setTargetPosition(600);
+                robot.Arm.setTargetPosition(100);
                 robot.Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
-                        robot.rightMotor.getCurrentPosition());
-            }
+                        robot.rightMotor.getCurrentPosition());            }
 
             // Stop all motion;
             robot.leftMotor.setPower(0);

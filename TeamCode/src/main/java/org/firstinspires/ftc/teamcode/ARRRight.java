@@ -68,7 +68,7 @@ public class ARRRight extends LinearOpMode
         //sleep(500);
         robot.Tipper.setPosition(0.1);
         //sleep(500);
-        encoderDrive(0.8, 0.8,-2300, -2300, 5.0); // Reverse 2438
+        encoderDrive(0.8, 0.7,-2000, -2000, 5.0); // Reverse 2438
 
     }
 
