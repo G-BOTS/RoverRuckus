@@ -118,7 +118,7 @@ public class TeleopNewwithArm  extends OpMode {
         robot.rightMotor.setPower((gamepad1.right_stick_y)/2);
     }
     else if (gamepad2.right_trigger > 0.1){
-        ARMdeployment(540,1529,200,2);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
+        ARMdeployment(540,1520,200,2);//the arm value of 650 stops just befor it hits the lander maybe we can make that to
     }
     else {
         robot.Intake.setPower(0);
